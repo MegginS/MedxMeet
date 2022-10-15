@@ -3,3 +3,4 @@ __pycache__
 secrets.sh
 .DS_Store
 news_key.txt
+flask_key.txt
