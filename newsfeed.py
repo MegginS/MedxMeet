@@ -1,11 +1,11 @@
 import requests
+import os
 from datetime import date, timedelta
 import json
 
 def create_payload():
 
-    with open('news_key.txt') as f:
-        news_key = f.readline().strip()
+    news_key = os.environ["NEWSFEED_KEY"]
     disease = 'OPMD'
     # need to not hardcode
     month = date.today() - timedelta(days = 28)
