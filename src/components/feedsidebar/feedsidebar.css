@@ -1,7 +1,8 @@
 .feedsidebar{
     flex: 40%;
     height: calc(100vh - 60px);
-    background-color: Pink;   
+    background-color: Pink;
+
 }
 .searchbar {
   width: 100%;
