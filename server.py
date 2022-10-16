@@ -2,6 +2,7 @@ from flask import (Flask, render_template, request, flash, session, redirect, ma
 
 import model
 import newsfeed
+import bcrypt
 
 app = Flask(__name__)
 
@@ -30,9 +31,29 @@ def news():
 def create_account():
     """Create an account"""
 
-    # to be built (backend needs to return json to front)
+    # return "MS working"
+    # get from frontend: email, password, first name, last name
+    email = "placeholder@okay.com"
+    password = "placeholder may need to encode"
+    category = "placeholder"
+    default_disease = "placeholder"
+    disease = "placeholder"
 
-    return "Placeholder for creating account"
+
+    user = model.User.query.filter(model.User.email == email).first()
+    # this row checks if there is a user with that email already
+    if user:
+        return ("An account is already associated with this email")
+    else:
+        hashed = bcrypt.hashpw(password, bcrypt.gensalt()).decode("utf-8")
+        model.User.create_user(email = email,
+                        password = hashed,
+                        category= category,
+                        default_disease= default_disease,
+                        disease = disease,
+                        posts = [],
+                        comments = [])
+        return "Successfully created"
 
 
 @app.route('/api/login')
@@ -62,13 +83,6 @@ def clinical_trials():
     return "Placeholder for clinical trials"
 
 
-@app.route('/api/forum')
-def forum():
-    """View forum related to the specific disease."""
-
- # to be built (backend needs to return json to front)
-
-    return "Placeholder for forum"
 
 @app.route('/api/posts_by_disease')
 def posts_by_disease_id():
@@ -83,7 +97,7 @@ def posts_by_disease_id():
 def posts_by_user_id():
     """Returns posts by user id."""
 
- # to be built (backend needs to return json to front)
+#  to be built (backend needs to return json to front)
 
     return "Placeholder for posts_by_user_id"
 
@@ -109,7 +123,7 @@ def comments_by_user_id():
 def add_post():
     """Add's a post."""
 
- # to be built (backend needs to return json to front)
+#   "frontend needs to send json to backend"
 
     return "Placeholder for adds posts"
 
@@ -118,7 +132,7 @@ def add_post():
 def edit_post():
     """Edits a post."""
 
- # to be built (backend needs to return json to front)
+ #   "frontend needs to send json to backend"
 
     return "Placeholder for edits posts"
 
@@ -136,7 +150,7 @@ def delete_post():
 def add_comment():
     """Add's a comment."""
 
- # to be built (backend needs to return json to front)
+ #   "frontend needs to send json to backend"
 
     return "Placeholder for adds comments"
 
@@ -145,7 +159,7 @@ def add_comment():
 def edit_comment():
     """Edits a comment."""
 
- # to be built (backend needs to return json to front)
+ #   "frontend needs to send json to backend"
 
     return "Placeholder for edits comments"
 
