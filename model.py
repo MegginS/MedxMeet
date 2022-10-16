@@ -19,9 +19,9 @@ class Disease(db.Model):
     disease_name = db.Column(db.String, unique=True, nullable=False)
     description = db.Column(db.Text, nullable=False)
 
-    posts = db.relationship("Post", backpopulates="disease")
-    comments = db.relationship("Comment", backpopulates="disease")
-    users = db.relationship("User", backpopulates="disease")
+    posts = db.relationship("Post", back_populates="disease")
+    comments = db.relationship("Comment", back_populates="disease")
+    users = db.relationship("User", back_populates="disease")
 
     def __repr__(self):
         return f"<Disease disease_id={self.disease_id} disease_name={self.disease_name} description={self.description}>"
@@ -59,9 +59,9 @@ class User(db.Model):
     category = db.Column(db.String, nullable=False)
 
 
-    disease = db.relationship("Disease", backpopulates="users")
-    posts = db.relationship("Post", backpopulates="user")
-    comments = db.relationship("Comment", backpopulates="user")
+    disease = db.relationship("Disease", back_populates="users")
+    posts = db.relationship("Post", back_populates="user")
+    comments = db.relationship("Comment", back_populates="user")
 
     def __repr__(self):
         return f"<User user_id={self.user_id} username={self.username} category={self.category}>"
@@ -107,9 +107,9 @@ class Post(db.Model):
     edit = db.Column(db.Boolean, default=False, nullable=False)
     date_edited = db.Column(db.DateTime, default=None, nullable=True)
 
-    disease = db.relationship("Disease", backpopulates="posts")
-    user = db.relationship("User", backpopulates="posts")
-    comments = db.relationship("Comment", backpopulates="post")
+    disease = db.relationship("Disease", back_populates="posts")
+    user = db.relationship("User", back_populates="posts")
+    comments = db.relationship("Comment", back_populates="post")
     
     def __repr__(self):
         return f"<Post post_id={self.post_id} body={self.body}>"
@@ -152,9 +152,9 @@ class Comment(db.Model):
     edit = db.Column(db.Boolean, default=False, nullable=False)
     date_edited = db.Column(db.DateTime, default=None, nullable=True)
 
-    disease = db.relationship("Disease", backpopulates="comments")
-    user = db.relationship("User", backpopulates="comments")
-    post = db.relationship("Post", backpopulates="comments")
+    disease = db.relationship("Disease", back_populates="comments")
+    user = db.relationship("User", back_populates="comments")
+    post = db.relationship("Post", back_populates="comments")
 
     def __repr__(self):
         return f"<Comment comment_id={self.comment_id} body={self.body}>"
