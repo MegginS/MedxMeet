@@ -67,10 +67,11 @@ class User(db.Model):
         return f"<User user_id={self.user_id} username={self.username} category={self.category}>"
 
     @classmethod
-    def create_user(cls, email, password, category, default_disease, disease=disease, posts=[], comments=[]):
+    def create_user(cls, username, email, password, category, default_disease, disease=disease, posts=[], comments=[]):
         """Create and return a new user."""
 
-        user = cls(email=email,
+        user = cls(username = username,
+                email=email,
                 password=password,
                 category=category,
                 default_disease=default_disease,

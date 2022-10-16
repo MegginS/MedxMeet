@@ -31,8 +31,8 @@ def news():
 def create_account():
     """Create an account"""
 
-    # return "MS working"
-    # get from frontend: email, password, first name, last name
+    # get from frontend: username, email, password, first name, last name
+    username = "placeholder"
     email = "placeholder@okay.com"
     password = "placeholder may need to encode"
     category = "placeholder"
@@ -46,7 +46,7 @@ def create_account():
         return ("An account is already associated with this email")
     else:
         hashed = bcrypt.hashpw(password, bcrypt.gensalt()).decode("utf-8")
-        model.User.create_user(email = email,
+        model.User.create_user(username = username, email = email,
                         password = hashed,
                         category= category,
                         default_disease= default_disease,
@@ -60,9 +60,24 @@ def create_account():
 def login():
     """Login Page"""
 
-# to be built (backend needs to return json to front)
+    # get from frontend: email, password
+    email = "placeholder@okay.com"
+    password = "placeholder may need to encode""
+    db_email = model.User.query.filter(model.User.email == email).all()
 
-    return "Placeholder for login"
+    if len(db_email) > 0:
+        # if user is in database
+        hashedpassword = bytes(db_email[0].password, "utf-8")
+        user = model.User.query.filter(model.User.email == email).first().username
+        user = user.title()
+        if bcrypt.checkpw(password, hashedpassword):
+            session['email'] = email
+            return "Profile page with logged in message"
+        else:
+            return ("Invalid Password")
+    else:
+        # if not in database
+        return "Placeholder-Message about no user in database"
 
 
 @app.route('/api/logout')
