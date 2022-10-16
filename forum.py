@@ -25,7 +25,7 @@ def home(request):
         "last_post":last_post,
         "title": "OZONE forum app"
     }
-    return render(request, "forums.html", context)
+    return render(request, "forums.json", context)
 
 def detail(request, slug):
     post = get_object_or_404(Post, slug=slug)
@@ -43,7 +43,7 @@ def detail(request, slug):
     }
     update_views(request, post)
 
-    return render(request, "detail.html", context)
+    return render(request, "detail.json", context)
 
 def posts(request, slug):
     category = get_object_or_404(Disease, slug=slug)
@@ -63,7 +63,7 @@ def posts(request, slug):
         "title": "OZONE: Posts"
     }
 
-    return render(request, "posts.html", context)
+    return render(request, "posts.json", context)
 
 
 @login_required
@@ -83,7 +83,7 @@ def create_post(request):
         "form": form,
         "title": "OZONE: Create New Post"
     })
-    return render(request, "create_post.html", context)
+    return render(request, "create_post.json", context)
 
 def latest_posts(request):
     posts = Post.objects.all().filter(approved=True)[:10]
@@ -92,11 +92,11 @@ def latest_posts(request):
         "title": "OZONE: Latest 10 Posts"
     }
 
-    return render(request, "latest-posts.html", context)
+    return render(request, "latest-posts.json", context)
 
 def search_result(request):
 
-    return render(request, "search.html")
+    return render(request, "search.json")
 
 
 def delete_post(request,id):
@@ -104,7 +104,7 @@ def delete_post(request,id):
     if request.user.is_authenticated and request.user == post.author:
         Post.objects.filter(id=id).delete()
         return redirect('posts:mypost')
-    return redirect('posts_errorpage.html')
+    return redirect('posts_errorpage.json')
 
 def edit_post(request):
     post = Post.objects.get(id=id)
@@ -122,5 +122,5 @@ def edit_post(request):
         args.update(csrf(request))
         args['form'] = form
 
-    return render_to_response('posts/post_edit.html', args)
+    return render_to_response('posts/post_edit.json', args)
 
