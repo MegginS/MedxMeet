@@ -3,8 +3,6 @@ import os
 from datetime import date, timedelta
 import json
 
-
-
 def create_payload():
 
     news_key = os.environ["NEWSFEED_KEY"]
@@ -19,9 +17,9 @@ def create_payload():
 def news_results():
 
     payload = create_payload()
+
     news_search = requests.get('https://newsapi.org/v2/everything', params = payload )
     news_result = news_search.json()
-
     articles = news_result['articles']
 
     all_articles=[]

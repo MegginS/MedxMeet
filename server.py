@@ -9,7 +9,7 @@ app.secret_key = "dev"
 
 @app.route('/news')
 def news():
-    """View links to news articles."""
+    """View news articles related to the specific disease."""
 
     all_articles = newsfeed.news_results()
 
@@ -17,4 +17,4 @@ def news():
 
 if __name__ == "__main__":
     model.connect_to_db(app)
-    app.run(host="0.0.0.0", debug=True)
+    app.run(host="0.0.0.0", port=8000, debug=True)
