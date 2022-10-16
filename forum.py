@@ -104,6 +104,7 @@ def delete_post(request,id):
     if request.user.is_authenticated and request.user == post.author:
         Post.objects.filter(id=post_id).delete()
         return redirect('posts:mypost')
+    return redirect('posts_errorpage.html')
 
 def edit_post(request):
     post = Post.objects.get(id=id)
