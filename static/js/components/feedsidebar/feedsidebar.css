@@ -1,5 +1,8 @@
 .feedsidebar{
-    flex: 25%
+    flex: 40%;
+    height: calc(100vh - 60px);
+    background-color: Pink;
+
 }
 .searchbar {
   width: 100%;
@@ -17,4 +20,9 @@
   .searchInput {
     border: none;
     width: 70%;
+
+  }
+  .searchInput:focus {
+    outline: none;
+    
   }

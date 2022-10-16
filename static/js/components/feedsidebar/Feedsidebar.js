@@ -8,7 +8,7 @@ export default function Feedsidebar() {
       <div className="feedsidebar">
       <div className="searchbar">
         <input
-                placeholder="Search for friend, post or video"
+                placeholder="Search for latest news"
                 className="searchInput"
             />
           <SearchIcon className="searchIcon" />
