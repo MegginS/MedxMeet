@@ -22,10 +22,24 @@ export default function Feed() {
 
         <article class="design">
                 <div class="text1">
-                    <h3> Design</h3>
+                    <h3> COVID-19 rapid tests can breed confusion – here’s how to make sense of the results and what to do, according to 3 testing experts </h3>
                     <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nobis officiis aliquid adipisci veritatis, ad numquam et! In assumenda dolore quam, corrupti, dignissimos, soluta est praesentium vel eligendi quibusdam beatae at!</p>
                 </div>
-                <img src="" alt="" />
+                <img src="/assets/newsfeedthumbnail/thumb1.jpg" alt="" />
+            </article>
+            
+            <article class="design">
+                <div class="text1">
+                    <h3> COVID-19 rapid tests can breed confusion – here’s how to make sense of the results and what to do, according to 3 testing experts </h3>
+                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nobis officiis aliquid adipisci veritatis, ad numquam et! In assumenda dolore quam, corrupti, dignissimos, soluta est praesentium vel eligendi quibusdam beatae at!</p>
+                </div>
+                <img src="/assets/newsfeedthumbnail/thumb1.jpg" alt="" />
+            </article><article class="design">
+                <div class="text1">
+                    <h3> COVID-19 rapid tests can breed confusion – here’s how to make sense of the results and what to do, according to 3 testing experts </h3>
+                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nobis officiis aliquid adipisci veritatis, ad numquam et! In assumenda dolore quam, corrupti, dignissimos, soluta est praesentium vel eligendi quibusdam beatae at!</p>
+                </div>
+                <img src="/assets/newsfeedthumbnail/thumb1.jpg" alt="" />
             </article>
       </div>
 
