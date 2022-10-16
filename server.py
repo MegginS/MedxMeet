@@ -62,7 +62,7 @@ def login():
 
     # get from frontend: email, password
     email = "placeholder@okay.com"
-    password = "placeholder may need to encode""
+    password = "placeholder may need to encode"
     db_email = model.User.query.filter(model.User.email == email).all()
 
     if len(db_email) > 0:
@@ -80,13 +80,14 @@ def login():
         return "Placeholder-Message about no user in database"
 
 
-@app.route('/api/logout')
+@app.route('/logout')
 def logout():
     """Logout page"""
 
- # to be built (backend needs to return json to front)
+    session.pop('email', None)
 
-    return "Placeholder for logout"
+    return redirect('/')
+
 
 
 @app.route('/api/clinical_trials')
