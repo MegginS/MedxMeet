@@ -1,0 +1,50 @@
+.topnavbarContainer{
+height: 60px;
+width: 100%;
+background-color: rgb(13, 179, 221);
+display: flex;
+align-items: center;
+position: sticky;
+top: 0;
+}
+
+.topbarleft {
+    flex:2;
+}
+
+.logo{
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 30px;
+    color: white;
+    cursor: pointer;
+}
+
+.topbarcenter{
+    flex:4;
+    color: white;
+    
+}
+.centerlinks
+{ 
+    cursor:pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+
+.topbaright {
+    flex:1;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    color: white;
+}
+.topbarImg  {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+}

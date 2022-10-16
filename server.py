@@ -5,8 +5,7 @@ import newsfeed
 
 app = Flask(__name__)
 
-with open('flask_key.txt') as f:
-    app.secret_key = f.readline().strip()
+app.secret_key = "dev"
 
 @app.route('/news')
 def news():
