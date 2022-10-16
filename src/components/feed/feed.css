@@ -1,4 +1,32 @@
 .feed{ 
-    flex:75%
+    flex:60%;
     }
 
+    .title {
+        text-align: center;
+        margin: 30px 0 30px 0;
+        
+    }
+    .hr{
+        width: 80%;
+        margin: 10px auto 10px auto ;
+        border: 1px solid black;
+    }
+
+    .introtext{
+        width: 80%;
+        margin: 10px auto 10px auto ;
+        text-align: center;
+    }
+
+    .design{
+        padding: 10PX;
+        
+    }
+    .design .text1 {
+        
+        margin: 0 0 0 25px;
+        padding-top: 3PX;
+       
+        margin-top: 20px;
+    }
