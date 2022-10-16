@@ -21,7 +21,7 @@ def signup(request):
         "form":form, 
         "title": "Signup",
     })
-    return render(request, "register/signup.html", context)
+    return render(request, "register/signup.json", context)
 
 def signin(request):
     context = {}
@@ -38,7 +38,7 @@ def signin(request):
         "form": form,
         "title": "Signin",
     })
-    return render(request, "register/signin.html", context)
+    return render(request, "register/signin.json", context)
 
 @login_required
 def update_profile(request):
@@ -56,7 +56,7 @@ def update_profile(request):
         "form": form,
         "title": "Update Profile",
     })
-    return render(request, "register/update.html", context)
+    return render(request, "register/update.json", context)
 
 @login_required
 def logout(request):
