@@ -10,7 +10,7 @@ export default function Feed() {
       </div>
     
       
-      <div className="hr"></div>
+      <hr className="hr" />
 
       <div className="main">
 
