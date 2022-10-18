@@ -57,7 +57,7 @@ def create_account():
 
            logged_in = {"status"= True, "default_disease": default_disease}
 
-    return json.dumps(logged_in)
+        return json.dumps(logged_in)
 
 
 @app.route('/api/login')
