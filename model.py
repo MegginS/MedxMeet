@@ -1,6 +1,6 @@
 """Models for Med x Meet app."""
 
-from flask import Flask
+# from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func
 
@@ -52,7 +52,7 @@ class User(db.Model):
     __tablename__ = "users"
 
     user_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    default_disease = db.Column(db.Integer, db.ForeignKey("diseases.disease_id"), nullable=False)
+    default_disease = db.Column(db.Integer, db.ForeignKey("diseases.disease_id"), nullable=True)
     username = db.Column(db.String, nullable=False)
     email = db.Column(db.String, nullable=False)
     password = db.Column(db.String, nullable=False)

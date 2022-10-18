@@ -43,7 +43,8 @@ def create_account():
     user = model.User.query.filter(model.User.email == email).first()
     # this row checks if there is a user with that email already
     if user:
-        return ("An account is already associated with this email")
+        # An account is already associated with this email
+        logged_in = {"status"= False, "default_disease": None}
     else:
         hashed = bcrypt.hashpw(password, bcrypt.gensalt()).decode("utf-8")
         model.User.create_user(username = username, email = email,
@@ -53,7 +54,10 @@ def create_account():
                         disease = disease,
                         posts = [],
                         comments = [])
-        return "Successfully created"
+
+           logged_in = {"status"= True, "default_disease": default_disease}
+
+    return json.dumps(logged_in)
 
 
 @app.route('/api/login')
