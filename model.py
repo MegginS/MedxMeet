@@ -1,6 +1,6 @@
 """Models for Med x Meet app."""
 
-# from flask import Flask
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func
 
@@ -34,6 +34,9 @@ class Disease(db.Model):
                     description=description,
                     posts=posts,
                     comments=comments)
+
+        # db.session.add(disease)
+        # db.session.commit()
 
         return disease
 

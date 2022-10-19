@@ -1,5 +1,6 @@
 from flask import (Flask, render_template, request, flash, session, redirect, make_response)
 
+import json
 import model
 import newsfeed
 import bcrypt
@@ -44,7 +45,7 @@ def create_account():
     # this row checks if there is a user with that email already
     if user:
         # An account is already associated with this email
-        logged_in = {"status"= False, "default_disease": None}
+        logged_in = {"status": False, "default_disease": None}
     else:
         hashed = bcrypt.hashpw(password, bcrypt.gensalt()).decode("utf-8")
         model.User.create_user(username = username, email = email,
@@ -55,7 +56,7 @@ def create_account():
                         posts = [],
                         comments = [])
 
-           logged_in = {"status"= True, "default_disease": default_disease}
+        logged_in = {"status": True, "default_disease": default_disease}
 
         return json.dumps(logged_in)
 
