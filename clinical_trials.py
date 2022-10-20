@@ -11,7 +11,6 @@ def ct_payload():
     study_fields = 'PatientRegistry,MaximumAge,MinimumAge,'
     location_fields = 'LocationCity,LocationContactEMail,LocationContactName,LocationContactPhone,LocationCountry,LocationFacility,'
     contact_fields = 'CentralContactEMail,CentralContactName,CentralContactPhone,CentralContactPhoneExt,CentralContactRole'
-    
     payload = {'expr': disease, 'fmt': fmt,'max_rnk': num_results, 'fields': abt_fields+study_fields+location_fields+contact_fields}
 # 
     return payload
@@ -21,20 +20,18 @@ def add_to_study_info_dict(field_name, field_value, study_information, study):
     try:
         study_information[field_name] = study.get(field_value, 'Not Provided')[0]
     except IndexError:
-        study_information[field_name] = ""
+        study_information[field_name] = "not provided"
 
 
 def check_clinical_trials():
 
     payload = ct_payload()
-
     ct_search = requests.get('https://ClinicalTrials.gov/api/query/study_fields', params= payload)
     ct_result = ct_search.json()
     all_studies = {}
-
     studies = ct_result.get('StudyFieldsResponse').get('StudyFields')
+    
     i = 1
-
     for study in studies:
         study_information = {}
         add_to_study_info_dict("organization", 'OrgFullName', study_information, study)
