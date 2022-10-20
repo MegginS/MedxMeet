@@ -2,7 +2,7 @@ from flask import (Flask, render_template, request, flash, session, redirect, ma
 
 import json
 import model
-import newsfeed
+import newsfeed, clinical_trials
 import bcrypt
 
 app = Flask(__name__)
@@ -96,12 +96,12 @@ def logout():
 
 
 @app.route('/api/clinical_trials')
-def clinical_trials():
+def view_clinical_trials():
     """View clinical trials related to the specific disease."""
 
- # to be built (backend needs to return json to front)
+    all_trials = clinical_trials.check_clinical_trials()
 
-    return "Placeholder for clinical trials"
+    return all_trials
 
 
 

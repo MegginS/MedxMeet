@@ -4,7 +4,8 @@ import json
 def ct_payload():
 
     disease = 'OPMD AND oculopharyngeal muscular dystrophy'
-    num_results = '2'
+    # to update disease per client
+    num_results = '50'
     fmt = 'json'
     abt_fields = 'OrgFullName,OverallStatus,OfficialTitle,CompletionDate,BriefSummary,StudyType,'
     study_fields = 'PatientRegistry,MaximumAge,MinimumAge,'
@@ -16,55 +17,48 @@ def ct_payload():
     return payload
 
 
-def clinical_trials():
+def add_to_study_info_dict(field_name, field_value, study_information, study):
+    try:
+        study_information[field_name] = study.get(field_value, 'Not Provided')[0]
+    except IndexError:
+        study_information[field_name] = ""
+
+
+def check_clinical_trials():
 
     payload = ct_payload()
 
     ct_search = requests.get('https://ClinicalTrials.gov/api/query/study_fields', params= payload)
     ct_result = ct_search.json()
-    print(ct_result.get('StudyFieldsResponse').get('StudyFields'))
+    all_studies = {}
 
     studies = ct_result.get('StudyFieldsResponse').get('StudyFields')
+    i = 1
 
     for study in studies:
-        organization = study.get('OrgFullName', 'Not Provided')
-        status = study.get('OverallStatus', 'Not Provided')
-        title = study.get('OfficialTitle', 'Not Provided')
-        completion_date = study.get('CompletionDate', 'Not Provided')
-        summary = study.get('BriefSummary', 'Not Provided')
-        study_type = study.get('StudyType', 'Not Provided')
-        patient_registry = study.get('PatientRegistry', 'Not Provided')
-        max_age = study.get('MaximumAge', 'Not Provided')
-        min_age = study.get('MinimumAge', 'Not Provided')
-        city = study.get('LocationCity', 'Not Provided')
-        location_email = study.get('LocationContactEMail', 'Not Provided')
-        location_contact = study.get('LocationContactName', 'Not Provided')
-        location_phone = study.get('LocationContactPhone', 'Not Provided')
-        location_country = study.get('LocationCountry', 'Not Provided')
-        location_facility = study.get('LocationFacility', 'Not Provided')
-        contact_email = study.get('CentralContactEMail', 'Not Provided')
-        contact_name = study.get('CentralContactName', 'Not Provided')
-        contact_phone = study.get('CentralContactPhone', 'Not Provided')
-        contact_ext = study.get('CentralContactPhoneExt', 'Not Provided')
-        contact_role = study.get('CentralContactRole', 'Not Provided')
+        study_information = {}
+        add_to_study_info_dict("organization", 'OrgFullName', study_information, study)
+        add_to_study_info_dict("status", 'OverallStatus', study_information, study)
+        add_to_study_info_dict("title", 'OfficialTitle', study_information, study)
+        add_to_study_info_dict("completion_date", 'CompletionDate', study_information, study)
+        add_to_study_info_dict("summary", 'BriefSummary', study_information, study)
+        add_to_study_info_dict("study_type", 'StudyType', study_information, study)
+        add_to_study_info_dict("patient_registry", 'PatientRegistry', study_information, study)
+        add_to_study_info_dict("max_age", 'MaximumAge', study_information, study)
+        add_to_study_info_dict("min_age", 'MinimumAge', study_information, study)
+        add_to_study_info_dict("city", 'LocationCity', study_information, study)
+        add_to_study_info_dict("location_email", 'LocationContactEMail', study_information, study)
+        add_to_study_info_dict("location_contact", 'LocationContactName', study_information, study)
+        add_to_study_info_dict("location_phone", 'LocationContactPhone', study_information, study)
+        add_to_study_info_dict("location_country", 'LocationCountry', study_information, study)
+        add_to_study_info_dict("location_facility", 'LocationFacility', study_information, study)
+        add_to_study_info_dict("contact_email", 'CentralContactEMail', study_information, study)
+        add_to_study_info_dict("contact_name", 'CentralContactName', study_information, study)
+        add_to_study_info_dict("contact_phone", 'CentralContactPhone', study_information, study)
+        add_to_study_info_dict("contact_ext", 'CentralContactPhoneExt', study_information, study)
+        add_to_study_info_dict("contact_role", 'CentralContactRole', study_information, study)
 
-        print(organization)
-        print(status)
-        print(title)
-        print(completion_date)
-        print(summary)
-        print(study_type)
-        print(patient_registry)
-        print(max_age)
-        print(min_age)
-        print(city)
-        print(location_email)
-        print(location_contact)
-        print(location_phone)
-        print(location_country)
-        print(location_facility)
-        print(contact_email)
-        print(contact_name)
-        print(contact_phone)
-        print(contact_ext)
-        print(contact_role)
+        all_studies[f'study{i}'] = study_information
+        i += 1
+
+    return json.dumps(all_studies)
