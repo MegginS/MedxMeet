@@ -48,13 +48,16 @@ def create_account():
         logged_in = {"status": False, "default_disease": None}
     else:
         hashed = bcrypt.hashpw(password, bcrypt.gensalt()).decode("utf-8")
-        model.User.create_user(username = username, email = email,
+        model.User.create_user(
+                        username = username,
+                        email = email,
                         password = hashed,
                         category= category,
                         default_disease= default_disease,
                         disease = disease,
                         posts = [],
-                        comments = [])
+                        comments = []
+                        )
 
         logged_in = {"status": True, "default_disease": default_disease}
 
