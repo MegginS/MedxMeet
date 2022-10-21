@@ -58,4 +58,5 @@ def check_clinical_trials():
         all_studies[f'study{i}'] = study_information
         i += 1
 
-    return json.dumps(all_studies)
+    # return json.dumps(all_studies)
+    return all_studies

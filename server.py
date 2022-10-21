@@ -97,15 +97,46 @@ def logout():
     return redirect('/')
 
 
-
-@app.route('/api/clinical_trials')
-def view_clinical_trials():
+@app.route('/api/active_trials')
+def view_active_trials():
     """View clinical trials related to the specific disease."""
 
-    all_trials = clinical_trials.check_clinical_trials()
+    all_studies = clinical_trials.check_clinical_trials()
+    active_trials = all_studies.copy()
+    
+    active = ['Active, not recruiting', 'Enrolling by invitation', 'Recruiting', 'Not yet recruiting']
 
-    return all_trials
+    for trial in all_studies:
 
+        status = all_studies[trial]['status']
+
+        if status not in active:
+            del active_trials[trial]
+        else:
+            pass
+ 
+    return json.dumps(active_trials)
+
+
+@app.route('/api/completed_trials')
+def view_completed_trials():
+    """View clinical trials related to the specific disease."""
+
+    all_studies = clinical_trials.check_clinical_trials()
+    completed_trials = all_studies.copy()
+    
+    active = ['Active, not recruiting', 'Enrolling by invitation', 'Recruiting', 'Not yet recruiting']
+
+    for trial in all_studies:
+
+        status = all_studies[trial]['status']
+
+        if status not in active:
+            pass
+        else:
+            del completed_trials[trial]
+ 
+    return json.dumps(completed_trials)
 
 
 @app.route('/api/posts_by_disease')
