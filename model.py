@@ -27,7 +27,7 @@ class Disease(db.Model):
         return f"<Disease disease_id={self.disease_id} disease_name={self.disease_name} description={self.description}>"
 
     @classmethod
-    def create_disease(cls, disease_name, description, users=[], posts=[], comments=[]):
+    def create_disease(cls, disease_name, description, posts=[], comments=[]):
         """Create and return a new user."""
 
         disease = cls(disease_name=disease_name,
