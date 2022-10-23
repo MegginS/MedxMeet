@@ -1,5 +1,5 @@
 from flask import (Flask, render_template, request, flash, session, redirect, make_response)
-
+from datetime import date, timedelta
 import json
 import model
 import newsfeed, clinical_trials
@@ -102,12 +102,11 @@ def view_active_trials():
     """View clinical trials related to the specific disease."""
 
     all_studies = clinical_trials.check_clinical_trials()
+    # should not make second api call for completed trials - move elsewhere?
     active_trials = all_studies.copy()
-    
     active = ['Active, not recruiting', 'Enrolling by invitation', 'Recruiting', 'Not yet recruiting']
 
     for trial in all_studies:
-
         status = all_studies[trial]['status']
 
         if status not in active:
@@ -124,11 +123,9 @@ def view_completed_trials():
 
     all_studies = clinical_trials.check_clinical_trials()
     completed_trials = all_studies.copy()
-    
     active = ['Active, not recruiting', 'Enrolling by invitation', 'Recruiting', 'Not yet recruiting']
 
     for trial in all_studies:
-
         status = all_studies[trial]['status']
 
         if status not in active:
@@ -230,4 +227,4 @@ def delete_comment():
 
 if __name__ == "__main__":
     model.connect_to_db(app)
-    app.run(host="0.0.0.0", port=8000, debug=True)
+    app.run(host="0.0.0.0", port=000, debug=True)

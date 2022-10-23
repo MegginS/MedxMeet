@@ -1,11 +1,7 @@
-
-from django.shortcuts import redirect, render, get_object_or_404
-from .models import User, Disease, Post, Comment
+from model import User, Disease, Post, Comment, db
 from .utils import update_views
-from .forms import PostForm
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from flask import (Flask, render_template, request, flash, session, redirect, make_response, jsonify)
+from datetime import datetime
 
 def home(request):
     forums = Disease.objects.all()
@@ -65,25 +61,26 @@ def posts(request, slug):
 
     return render(request, "posts.json", context)
 
-
-@login_required
+# @login_required
 def create_post(request):
-    context = {}
-    form = PostForm(request.POST or None)
-    if request.method == "POST":
-        if form.is_valid():
-            print("\n\n its valid")
-            author = User.objects.get(user=request.user)
-            new_post = form.save(commit=False)
-            new_post.user = author
-            new_post.save()
-            form.save_m2m()
-            return redirect("home")
-    context.update({
-        "form": form,
-        "title": "OZONE: Create New Post"
-    })
-    return render(request, "create_post.json", context)
+    """Create a Post"""
+
+    user_id = session.get("user_id")
+
+    disease_id = request.get_json().get("diseaseId")
+    subject = request.get_json().get("subject")
+    body = request.get_json().get("body")
+
+    post = Post.create_post(disease_id, user_id, subject, body, date_created=datetime.now(), edit=False, date_edited=None, comments=[])
+
+    db.session.add(post)
+    db.session.commit()
+
+    post_json = post.to_dict()
+
+    return jsonify({"postAdded": post_json})
+
+
 
 def latest_posts(request):
     posts = Post.objects.all().filter(approved=True)[:10]

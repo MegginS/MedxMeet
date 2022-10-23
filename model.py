@@ -85,6 +85,13 @@ class User(db.Model):
         return user
 
     @classmethod
+    def get_user_by_email(cls, email):
+        """Return a user by email."""
+
+        return db.session.query(cls).filter(cls.email == email).first()
+
+
+    @classmethod
     def get_posts_by_user_id(cls, user_id):
         """Return all posts by user_id."""
 
@@ -105,6 +112,7 @@ class Post(db.Model):
     post_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     disease_id = db.Column(db.Integer, db.ForeignKey("diseases.disease_id"), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"), nullable=False)
+    subject = db.Column(db.Text, nullable=False)
     body = db.Column(db.Text, nullable=False)
     date_created = db.Column(db.DateTime, nullable=False)
     edit = db.Column(db.Boolean, default=False, nullable=False)
@@ -117,22 +125,39 @@ class Post(db.Model):
     def __repr__(self):
         return f"<Post post_id={self.post_id} body={self.body}>"
 
+
+    def to_dict(self):
+        
+        return {
+            "post_id": self.post_id,
+            "disease_id": self.disease_id,
+            "user_id": self.user_id,
+            "subject": self.subject,
+            "body": self.body,
+            "date_created": self.date_created,
+            "edit": self.edit,
+            "date_edited": self.date_edited,
+            "comments": self.comments
+        }
+
+
     @classmethod
-    def create_post(cls, disease_id, user_id, body, date_created, edit, date_edited, user, comments=[]):
+    def create_post(cls, disease_id, user_id, subject, body, date_created, edit, date_edited, comments=[]):
         """Create and return a new comment."""
 
         post = cls(
             disease_id=disease_id,
             user_id=user_id,
+            subject=subject,
             body=body,
             date_created=date_created,
             edit=edit,
             date_edited=date_edited,
-            user=user,
             comments=comments
         )
 
         return post
+
 
     @classmethod
     def get_posts_by_disease_id(cls, disease_id):
