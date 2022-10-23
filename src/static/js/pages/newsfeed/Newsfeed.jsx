@@ -6,14 +6,13 @@ import "./newsfeed.css"
 
 export default function Newsfeed() {
   return (
-    <>
+  <> 
     <Topnavbar/>
     <div className="newsfeedContainer">
       <Feed/>
       <Feedsidebar/>
     </div>
-    </>
-    
+  </>    
   )
 
 }

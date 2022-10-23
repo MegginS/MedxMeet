@@ -4,6 +4,7 @@ import model
 import newsfeed
 import bcrypt
 
+
 app = Flask(__name__)
 
 app.secret_key = "dev"
